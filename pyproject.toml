@@ -1,0 +1,11 @@
+[project]
+name = "photomosaic"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "instaloader>=4.15.1",
+    "numpy>=2.5.0",
+    "pillow>=12.2.0",
+]

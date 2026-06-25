@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# photomosaic
+tiles/
+tiles_cache.npz
+mosaic.png
