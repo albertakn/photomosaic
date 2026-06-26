@@ -31,13 +31,23 @@ def main() -> int:
     b.add_argument("--overlay", type=float, default=0.15,
                    help="подмес цвета 0..1 (меньше = сильнее видно фотки)")
     b.add_argument("--no-repeat", type=int, default=3,
-                   help="радиус (в рядах) запрета повтора плитки")
+                   help="параметр n анти-повтора (linear/square/circle — радиус "
+                        "в рядах/ячейках, cap — макс. число повторов фотки)")
+    b.add_argument("--repeat-mode", choices=mosaic.REPEAT_MODES, default="square",
+                   help="алгоритм анти-повтора: none | linear | square | circle | cap")
+    b.add_argument("--best-k", type=int, default=1,
+                   help="стохастика поверх ограничения: случайная из k ближайших "
+                        "допустимых (1 = выкл; микс, напр. linear + best-k)")
+    b.add_argument("--blend", choices=mosaic.BLEND_MODES, default="color",
+                   help="overlay: color (цвет ячейки) | original (реальный оригинал)")
+    b.add_argument("--grid", type=int, default=mosaic.GRID,
+                   help="под-сетка отпечатка grid×grid (больше = точнее структура/края)")
 
     a = parser.parse_args()
     if a.cmd == "scrape":
         return scrape.scrape(a.user, a.out, a.delay)
     return mosaic.build(a.target, a.tiles, a.out, a.cols, a.tile_px,
-                        a.overlay, a.no_repeat)
+                        a.overlay, a.no_repeat, a.repeat_mode, a.blend, a.best_k, a.grid)
 
 
 if __name__ == "__main__":
